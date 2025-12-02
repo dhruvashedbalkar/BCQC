@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 46, "column": 0}, "map": {"version":3,"sources":["file:///Users/dhruvashedbalkar/Desktop/QB.Club/app/api/auth/logout/route.ts"],"sourcesContent":["import { NextResponse } from 'next/server'\n\nexport const runtime = 'nodejs'\n\nexport async function POST() {\n  const res = NextResponse.json({ success: true })\n  res.cookies.set('session_id', '', { httpOnly: true, path: '/', maxAge: 0 })\n  return res\n}"],"names":[],"mappings":";;;;;;AAAA;;AAEO,MAAM,UAAU;AAEhB,eAAe;IACpB,MAAM,MAAM,8XAAY,CAAC,IAAI,CAAC;QAAE,SAAS;IAAK;IAC9C,IAAI,OAAO,CAAC,GAAG,CAAC,cAAc,IAAI;QAAE,UAAU;QAAM,MAAM;QAAK,QAAQ;IAAE;IACzE,OAAO;AACT"}}]
+}

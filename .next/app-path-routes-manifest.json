@@ -1,0 +1,15 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/api/auth/login/route": "/api/auth/login",
+  "/api/auth/register/route": "/api/auth/register",
+  "/campus/page": "/campus",
+  "/events/page": "/events",
+  "/join/page": "/join",
+  "/labs/page": "/labs",
+  "/learn/page": "/learn",
+  "/members/page": "/members",
+  "/page": "/",
+  "/projects/page": "/projects"
+}

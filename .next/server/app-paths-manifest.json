@@ -1,0 +1,15 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/about/page": "app/about/page.js",
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/api/auth/register/route": "app/api/auth/register/route.js",
+  "/campus/page": "app/campus/page.js",
+  "/events/page": "app/events/page.js",
+  "/join/page": "app/join/page.js",
+  "/labs/page": "app/labs/page.js",
+  "/learn/page": "app/learn/page.js",
+  "/members/page": "app/members/page.js",
+  "/page": "app/page.js",
+  "/projects/page": "app/projects/page.js"
+}

@@ -8,6 +8,8 @@ import { Menu, X } from "lucide-react"
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [user, setUser] = useState<{ email: string; walletAddress: string | null } | null>(null)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +17,22 @@ export function Navigation() {
     }
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const res = await fetch('/api/auth/me', { credentials: 'include' })
+        if (res.ok) {
+          const data = await res.json()
+          setUser(data)
+        } else {
+          setUser(null)
+        }
+      } catch {
+        setUser(null)
+      }
+    })()
   }, [])
 
   const navItems = [
@@ -57,14 +75,47 @@ export function Navigation() {
             ))}
           </div>
 
-          {/* CTA Buttons */}
-          <div className="hidden lg:flex items-center gap-3">
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="/join">Sign In</Link>
-            </Button>
-            <Button size="sm" className="glow-purple" asChild>
-              <Link href="/join">Join Club</Link>
-            </Button>
+          {/* Right Side */}
+          <div className="hidden lg:flex items-center gap-3 relative">
+            {!user ? (
+              <>
+                <Button variant="ghost" size="sm" asChild>
+                  <Link href="/join">Sign In</Link>
+                </Button>
+                <Button size="sm" className="glow-purple" asChild>
+                  <Link href="/join">Join Club</Link>
+                </Button>
+              </>
+            ) : (
+              <div className="relative">
+                <button
+                  className="w-9 h-9 rounded-full bg-muted flex items-center justify-center font-bold"
+                  onClick={() => setMenuOpen((v) => !v)}
+                >
+                  {user.email.charAt(0).toUpperCase()}
+                </button>
+                {menuOpen && (
+                  <div className="absolute right-0 mt-2 w-48 glass rounded-xl p-2 shadow-lg">
+                    <div className="px-3 py-2 text-xs text-muted-foreground border-b border-border/50">
+                      {user.email}
+                    </div>
+                    <Link href="/profile" className="block px-3 py-2 text-sm hover:text-primary" onClick={() => setMenuOpen(false)}>
+                      View Profile
+                    </Link>
+                    <button
+                      className="w-full text-left px-3 py-2 text-sm hover:text-primary"
+                      onClick={async () => {
+                        await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' })
+                        setUser(null)
+                        setMenuOpen(false)
+                      }}
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -87,12 +138,32 @@ export function Navigation() {
               </Link>
             ))}
             <div className="flex flex-col gap-2 pt-4 border-t border-border">
-              <Button variant="ghost" size="sm" asChild>
-                <Link href="/join">Sign In</Link>
-              </Button>
-              <Button size="sm" className="glow-purple" asChild>
-                <Link href="/join">Join Club</Link>
-              </Button>
+              {!user ? (
+                <>
+                  <Button variant="ghost" size="sm" asChild>
+                    <Link href="/join">Sign In</Link>
+                  </Button>
+                  <Button size="sm" className="glow-purple" asChild>
+                    <Link href="/join">Join Club</Link>
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link href="/profile" className="text-sm font-medium text-foreground/80 hover:text-primary" onClick={() => setIsMobileMenuOpen(false)}>
+                    View Profile
+                  </Link>
+                  <button
+                    className="text-left text-sm font-medium text-foreground/80 hover:text-primary"
+                    onClick={async () => {
+                      await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' })
+                      setUser(null)
+                      setIsMobileMenuOpen(false)
+                    }}
+                  >
+                    Sign Out
+                  </button>
+                </>
+              )}
             </div>
           </div>
         )}
