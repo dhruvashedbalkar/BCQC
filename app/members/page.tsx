@@ -6,55 +6,94 @@ import { SectionHeading } from "@/components/section-heading"
 import { GlassCard } from "@/components/glass-card"
 import { Badge } from "@/components/ui/badge"
 import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
 import { Github, Linkedin, Twitter } from "lucide-react"
 
 const leadership = [
   {
-    name: "Sarah Chen",
-    role: "President",
+    name: "Dhruva Shedbalkar",
+    role: "Member",
     track: "Blockchain",
     bio: "Full-stack blockchain developer. Previously interned at Ethereum Foundation.",
     image: "/placeholder.svg?key=leader1",
-    socials: { twitter: "#", github: "#", linkedin: "#" },
+    socials: { twitter: "https://x.com/Shedbalkar20", github: "#", linkedin: "#" },
   },
   {
-    name: "James Wilson",
-    role: "Vice President",
+    name: "Ayush Shetty",
+    role: "Member",
     track: "Quantum",
     bio: "PhD candidate in Quantum Information. Researching error correction codes.",
     image: "/placeholder.svg?key=leader2",
-    socials: { twitter: "#", github: "#", linkedin: "#" },
+    socials: { twitter: "https://x.com/AyuShettyEth", github: "#", linkedin: "#" },
   },
   {
-    name: "Maria Garcia",
-    role: "Head of AI",
+    name: "Dhanush Naik",
+    role: "Member",
     track: "AI/ML",
     bio: "Building autonomous agents for DeFi. Winner of ETHGlobal 2024.",
     image: "/placeholder.svg?key=leader3",
-    socials: { twitter: "#", github: "#", linkedin: "#" },
+    socials: { twitter: "https://x.com/iamdhanushlnaik", github: "#", linkedin: "#" },
   },
   {
-    name: "David Kim",
-    role: "Head of Research",
+    name: "Adyaan Mallik",
+    role: "Member",
     track: "Cryptography",
     bio: "Focusing on ZK-rollups and privacy scaling solutions.",
     image: "/placeholder.svg?key=leader4",
-    socials: { twitter: "#", github: "#", linkedin: "#" },
+    socials: { twitter: "https://x.com/Adyaaannnn", github: "#", linkedin: "#" },
   },
+  {
+    name: "Dhyanchand",
+    role: "Member",
+    track: "Cryptography",
+    bio: "Focusing on ZK-rollups and privacy scaling solutions.",
+    image: "/placeholder.svg?key=leader4",
+    socials: { twitter: "https://x.com/DhyanchandGatty", github: "#", linkedin: "#" },
+  },
+  {
+    name: "Disha Shetty",
+    role: "Member",
+    track: "Cryptography",
+    bio: "Focusing on ZK-rollups and privacy scaling solutions.",
+    image: "/placeholder.svg?key=leader4",
+    socials: { twitter: "https://x.com/shettydishaa", github: "#", linkedin: "#" },
+  },
+  {
+    name: "V K Ronith",
+    role: "Member",
+    track: "Cryptography",
+    bio: "Focusing on ZK-rollups and privacy scaling solutions.",
+    image: "/placeholder.svg?key=leader4",
+    socials: { twitter: "https://x.com/auracle2142", github: "#", linkedin: "#" },
+  }
 ]
 
-const members = [
-  { name: "Alex Thompson", role: "Core Member", skills: ["Solidity", "React"] },
-  { name: "Emma Davis", role: "Contributor", skills: ["Python", "Qiskit"] },
-  { name: "Michael Brown", role: "Member", skills: ["Rust", "Substrate"] },
-  { name: "Lisa Wang", role: "Core Member", skills: ["Design", "Figma"] },
-  { name: "Kevin White", role: "Member", skills: ["Go", "Cosmos SDK"] },
-  { name: "Rachel Green", role: "Contributor", skills: ["TensorFlow", "PyTorch"] },
-  { name: "Chris Taylor", role: "Member", skills: ["Smart Contracts"] },
-  { name: "Amanda Martinez", role: "Core Member", skills: ["Community", "Marketing"] },
-]
+type Member = { name: string; role: string; skills: string[] }
+
 
 export default function MembersPage() {
+  const [members, setMembers] = useState<Member[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+
+  useEffect(() => {
+    let mounted = true
+    ;(async () => {
+      try {
+        const res = await fetch('/api/members')
+        const data = await res.json()
+        if (mounted && Array.isArray(data.members)) {
+          setMembers(data.members)
+        }
+      } catch (e) {
+        // ignore
+      } finally {
+        if (mounted) setLoading(false)
+      }
+    })()
+    return () => {
+      mounted = false
+    }
+  }, [])
   return (
     <main className="min-h-screen bg-background">
       <Navigation />
@@ -123,7 +162,13 @@ export default function MembersPage() {
         {/* Member Directory */}
         <h3 className="text-2xl font-bold mb-8 pl-2 border-l-4 border-secondary">Member Directory</h3>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {members.map((member, index) => (
+          {loading && (
+            <div className="col-span-full text-sm text-muted-foreground">Loading members…</div>
+          )}
+          {!loading && members.length === 0 && (
+            <div className="col-span-full text-sm text-muted-foreground">No members yet</div>
+          )}
+          {!loading && members.map((member, index) => (
             <motion.div
               key={member.name}
               initial={{ opacity: 0, scale: 0.95 }}

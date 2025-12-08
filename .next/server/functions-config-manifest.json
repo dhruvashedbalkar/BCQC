@@ -1,7 +1,10 @@
 {
   "version": 1,
   "functions": {
-    "/api/auth/register": {},
-    "/api/auth/login": {}
+    "/api/auth/logout": {},
+    "/api/members": {},
+    "/api/auth/login": {},
+    "/api/auth/me": {},
+    "/api/auth/register": {}
   }
 }

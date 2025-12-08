@@ -3,7 +3,10 @@
   "/_not-found/page": "/_not-found",
   "/about/page": "/about",
   "/api/auth/login/route": "/api/auth/login",
+  "/api/auth/logout/route": "/api/auth/logout",
+  "/api/auth/me/route": "/api/auth/me",
   "/api/auth/register/route": "/api/auth/register",
+  "/api/members/route": "/api/members",
   "/campus/page": "/campus",
   "/events/page": "/events",
   "/join/page": "/join",
@@ -11,5 +14,6 @@
   "/learn/page": "/learn",
   "/members/page": "/members",
   "/page": "/",
+  "/profile/page": "/profile",
   "/projects/page": "/projects"
 }
