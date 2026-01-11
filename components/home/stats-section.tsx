@@ -2,15 +2,36 @@
 
 import { motion } from "framer-motion"
 import { GlassCard } from "@/components/glass-card"
-
-const stats = [
-  { label: "Active Members", value: "500+", color: "text-purple-400" },
-  { label: "Projects Built", value: "120+", color: "text-blue-400" },
-  { label: "Workshops Hosted", value: "50+", color: "text-pink-400" },
-  { label: "Partners", value: "15+", color: "text-green-400" },
-]
+import { useEffect, useState } from "react"
+import { projects } from "@/app/projects/page"
+import { events } from "@/app/events/page"
+import { leadership } from "@/app/members/page"
 
 export function StatsSection() {
+  const [usersCount, setUsersCount] = useState<number>(0)
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const res = await fetch('/api/stats')
+        const data = await res.json()
+        if (res.ok) setUsersCount(data.usersCount || 0)
+      } catch {}
+    })()
+  }, [])
+
+  const activeMembers = usersCount + leadership.length
+  const projectsBuilt = projects.length
+  const workshopsHosted = events.filter((e) => e.category === 'Workshop').length
+  const partnersCount = 15
+
+  const stats = [
+    { label: "Active Members", value: String(activeMembers), color: "text-purple-400" },
+    { label: "Projects Built", value: String(projectsBuilt), color: "text-blue-400" },
+    { label: "Workshops Hosted", value: String(workshopsHosted), color: "text-pink-400" },
+    { label: "Partners", value: String(partnersCount), color: "text-green-400" },
+  ]
+
   return (
     <section className="py-12 relative z-10">
       <div className="container mx-auto px-4">

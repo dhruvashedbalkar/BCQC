@@ -32,25 +32,35 @@ async function hashPassword(password: string) {
 
 interface User {
   email: string
+  username: string
   passwordHash: string
   walletAddress: string | null
   createdAt: Date
 }
 
+function isValidUsername(username?: string) {
+  if (!username) return false
+  return /^[a-zA-Z][a-zA-Z0-9_]{2,19}$/.test(username)
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json()
-    const { email, password, walletAddress } = body as {
+    const { email, username, password, walletAddress } = body as {
       email?: string
+      username?: string
       password?: string
       walletAddress?: string
     }
 
-    if (!email || !password) {
-      return NextResponse.json({ error: 'Email and password are required' }, { status: 400 })
+    if (!email || !username || !password) {
+      return NextResponse.json({ error: 'Email, username and password are required' }, { status: 400 })
     }
     if (!isValidEmail(email)) {
       return NextResponse.json({ error: 'Email must match nnmYYddddd@nmamit.in' }, { status: 400 })
+    }
+    if (!isValidUsername(username)) {
+      return NextResponse.json({ error: 'Username must be 3-20 chars, letters/numbers/underscore, start with letter' }, { status: 400 })
     }
     if (!isValidWallet(walletAddress)) {
       return NextResponse.json({ error: 'Invalid wallet address' }, { status: 400 })
@@ -59,15 +69,20 @@ export async function POST(req: Request) {
     const db = await getDb()
     const users = db.collection<User>('users')
 
-    const existing = await users.findOne({ email })
-    if (existing) {
+    const existingEmail = await users.findOne({ email })
+    if (existingEmail) {
       return NextResponse.json({ error: 'Email already registered' }, { status: 409 })
+    }
+    const existingUsername = await users.findOne({ username })
+    if (existingUsername) {
+      return NextResponse.json({ error: 'Username already taken' }, { status: 409 })
     }
 
     const passwordHash = await hashPassword(password)
 
     const doc: User = {
       email,
+      username,
       passwordHash,
       walletAddress: walletAddress || null,
       createdAt: new Date(),

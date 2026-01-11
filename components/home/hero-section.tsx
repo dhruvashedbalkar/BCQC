@@ -2,26 +2,54 @@
 
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
-import { Canvas } from "@react-three/fiber"
-import { OrbitControls, Sphere, MeshDistortMaterial } from "@react-three/drei"
+import { Canvas, useFrame } from "@react-three/fiber"
+import { OrbitControls, Sphere, MeshDistortMaterial, Float } from "@react-three/drei"
 import Link from "next/link"
-import { Suspense } from "react"
+import { Suspense, useRef, useState } from "react"
 
 function AnimatedSphere() {
+  const sphereRef = useRef<any>(null)
+  const [hovered, setHovered] = useState(false)
+  const [color, setColor] = useState("#8b5cf6")
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime()
+    if (sphereRef.current) {
+      sphereRef.current.rotation.y = t * 0.2 + state.pointer.x * 0.6
+      sphereRef.current.rotation.x = state.pointer.y * 0.3
+    }
+  })
+
   return (
-    <Sphere args={[1, 100, 200]} scale={2.4}>
-      <MeshDistortMaterial color="#8b5cf6" attach="material" distort={0.5} speed={2} roughness={0} />
-    </Sphere>
+    <Float speed={1} rotationIntensity={0.3} floatIntensity={1}>
+      <Sphere
+        ref={sphereRef}
+        args={[1, 64, 64]}
+        scale={2.0}
+        onPointerOver={() => setHovered(true)}
+        onPointerOut={() => setHovered(false)}
+        onClick={() => setColor((c) => (c === "#8b5cf6" ? "#22d3ee" : "#8b5cf6"))}
+      >
+        <MeshDistortMaterial
+          color={color}
+          distort={hovered ? 0.7 : 0.5}
+          speed={hovered ? 2.4 : 1.8}
+          roughness={0}
+          metalness={0.2}
+          attach="material"
+        />
+      </Sphere>
+    </Float>
   )
 }
 
 function Scene() {
   return (
-    <Canvas>
-      <OrbitControls enableZoom={false} autoRotate />
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[3, 2, 1]} />
+    <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 6], fov: 50 }}>
+      <ambientLight intensity={0.7} />
+      <directionalLight position={[3, 2, 1]} intensity={1} />
       <AnimatedSphere />
+      <OrbitControls enableZoom={false} autoRotate enablePan={false} />
     </Canvas>
   )
 }

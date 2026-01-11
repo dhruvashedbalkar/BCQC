@@ -811,6 +811,10 @@
     height: calc(var(--spacing) * 24);
   }
 
+  .h-40 {
+    height: calc(var(--spacing) * 40);
+  }
+
   .h-48 {
     height: calc(var(--spacing) * 48);
   }
@@ -1090,6 +1094,10 @@
 
   .overflow-x-auto {
     overflow-x: auto;
+  }
+
+  .rounded {
+    border-radius: .25rem;
   }
 
   .rounded-2xl {
@@ -1561,6 +1569,14 @@
     background-image: linear-gradient(var(--tw-gradient-stops));
   }
 
+  .\[background-image\:linear-gradient\(to_right\,rgba\(255\,255\,255\,0\.04\)_1px\,transparent_1px\)\,linear-gradient\(to_bottom\,rgba\(255\,255\,255\,0\.04\)_1px\,transparent_1px\)\] {
+    background-image: linear-gradient(to right, #ffffff0a 1px, #0000 1px), linear-gradient(#ffffff0a 1px, #0000 1px);
+  }
+
+  .\[background-image\:linear-gradient\(to_right\,rgba\(255\,255\,255\,0\.08\)_1px\,transparent_1px\)\,linear-gradient\(to_bottom\,rgba\(255\,255\,255\,0\.08\)_1px\,transparent_1px\)\] {
+    background-image: linear-gradient(to right, #ffffff14 1px, #0000 1px), linear-gradient(#ffffff14 1px, #0000 1px);
+  }
+
   .bg-\[radial-gradient\(circle_at_50\%_50\%\,rgba\(139\,92\,246\,0\.1\)\,transparent_50\%\)\] {
     background-image: radial-gradient(circle, #8b5cf61a, #0000 50%);
   }
@@ -1697,6 +1713,24 @@
   .to-transparent {
     --tw-gradient-to: transparent;
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+
+  .\[mask-image\:radial-gradient\(ellipse_at_center\,black\,transparent_65\%\)\] {
+    -webkit-mask-image: radial-gradient(#000, #0000 65%);
+    mask-image: radial-gradient(#000, #0000 65%);
+  }
+
+  .\[mask-image\:radial-gradient\(ellipse_at_center\,black\,transparent_70\%\)\] {
+    -webkit-mask-image: radial-gradient(#000, #0000 70%);
+    mask-image: radial-gradient(#000, #0000 70%);
+  }
+
+  .\[background-size\:20px_20px\] {
+    background-size: 20px 20px;
+  }
+
+  .\[background-size\:24px_24px\] {
+    background-size: 24px 24px;
   }
 
   .bg-clip-text {

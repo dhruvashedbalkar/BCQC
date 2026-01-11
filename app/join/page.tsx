@@ -22,13 +22,20 @@ export default function JoinPage() {
     .string()
     .regex(/^nnm\d{2}[a-z]{2}\d{3}@nmamit\.in$/, "Email must match nnmYYddddd@nmamit.in")
 
+  const usernameSchema = z
+    .string()
+    .min(3, "Username must be at least 3 characters")
+    .max(20, "Username must be at most 20 characters")
+    .regex(/^[a-zA-Z][a-zA-Z0-9_]{2,19}$/, "Only letters, numbers, underscore; start with a letter")
+
   const registerSchema = z.object({
     email: emailSchema,
+    username: usernameSchema,
     password: z.string().min(8, "Password must be at least 8 characters"),
   })
 
   const loginSchema = z.object({
-    email: emailSchema,
+    identifier: z.string().min(3, "Enter username or email"),
     password: z.string().min(8, "Password must be at least 8 characters"),
   })
 
@@ -69,7 +76,7 @@ export default function JoinPage() {
         return
       }
       setStatus("Registered successfully")
-      window.location.reload()
+      window.location.href = "/"
     } catch {
       setStatus("Network error")
     }
@@ -89,7 +96,7 @@ export default function JoinPage() {
         return
       }
       setStatus("Signed in successfully")
-      window.location.reload()
+      window.location.href = "/"
     } catch {
       setStatus("Network error")
     }
@@ -140,6 +147,15 @@ export default function JoinPage() {
                   {mode === "register" ? (
                     <form onSubmit={onRegister} className="space-y-4">
                       <div className="space-y-2">
+                        <Label htmlFor="reg-username">Username</Label>
+                        <Input id="reg-username" className="h-11 bg-background/50" placeholder="yourusername"
+                          {...registerForm.register("username")}
+                        />
+                        {registerForm.formState.errors.username && (
+                          <div className="text-red-400 text-sm">{registerForm.formState.errors.username.message}</div>
+                        )}
+                      </div>
+                      <div className="space-y-2">
                         <Label htmlFor="reg-email">NMAMIT Email</Label>
                         <Input id="reg-email" className="h-11 bg-background/50" placeholder="nnm2xxxxxx@nmamit.in"
                           {...registerForm.register("email")}
@@ -164,12 +180,12 @@ export default function JoinPage() {
                   ) : (
                     <form onSubmit={onLogin} className="space-y-4">
                       <div className="space-y-2">
-                        <Label htmlFor="login-email">Email Address</Label>
-                        <Input id="login-email" className="h-11 bg-background/50" placeholder="email@nmamit.in"
-                          {...loginForm.register("email")}
+                        <Label htmlFor="login-identifier">Username or Email</Label>
+                        <Input id="login-identifier" className="h-11 bg-background/50" placeholder="yourusername or email@nmamit.in"
+                          {...loginForm.register("identifier")}
                         />
-                        {loginForm.formState.errors.email && (
-                          <div className="text-red-400 text-sm">{loginForm.formState.errors.email.message}</div>
+                        {loginForm.formState.errors.identifier && (
+                          <div className="text-red-400 text-sm">{loginForm.formState.errors.identifier.message}</div>
                         )}
                       </div>
                       <div className="space-y-2">

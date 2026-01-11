@@ -7,6 +7,7 @@
   "/api/auth/me/route": "app/api/auth/me/route.js",
   "/api/auth/register/route": "app/api/auth/register/route.js",
   "/api/members/route": "app/api/members/route.js",
+  "/api/stats/route": "app/api/stats/route.js",
   "/campus/page": "app/campus/page.js",
   "/events/page": "app/events/page.js",
   "/join/page": "app/join/page.js",

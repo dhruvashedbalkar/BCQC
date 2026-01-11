@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { motion } from "framer-motion"
 import { Github, ExternalLink, Star, GitFork } from "lucide-react"
 
-const projects = [
+export const projects = [
   {
     id: 1,
     title: "Decentralized Identity Oracle",

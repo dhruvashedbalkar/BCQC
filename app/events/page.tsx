@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { motion } from "framer-motion"
 import { MapPin, Clock, Users, QrCode } from "lucide-react"
 
-const events = [
+export const events = [
   {
     id: 1,
     title: "DeFi Summit 2025",
@@ -134,6 +134,63 @@ export default function EventsPage() {
                       </Button>
                     </div>
                   </div>
+                </div>
+              </GlassCard>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 pb-24">
+        <SectionHeading
+          title="Previous Events"
+          subtitle="A look back at our past events and highlights."
+          className="mb-12"
+        />
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {[
+            {
+              id: 'p1',
+              title: 'Blockchain Bootcamp',
+              date: 'Aug 12, 2025',
+              location: 'Innovation Lab',
+              category: 'Workshop',
+              image: '/placeholder.svg?key=past1',
+              description: 'Hands-on Solidity and smart contracts with live coding sessions.',
+            },
+            {
+              id: 'p2',
+              title: 'Quantum Talk Series',
+              date: 'Jul 02, 2025',
+              location: 'Auditorium',
+              category: 'Seminar',
+              image: '/placeholder.svg?key=past2',
+              description: 'Guest lecture on quantum error correction and cryptography.',
+            },
+            {
+              id: 'p3',
+              title: 'AI Agents Showcase',
+              date: 'Jun 18, 2025',
+              location: 'Tech Hub',
+              category: 'Expo',
+              image: '/placeholder.svg?key=past3',
+              description: 'Student demos of autonomous agents for DeFi and analytics.',
+            },
+          ].map((ev, idx) => (
+            <motion.div key={ev.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} viewport={{ once: true }}>
+              <GlassCard className="overflow-hidden h-full">
+                <div className="h-40 w-full overflow-hidden">
+                  <img src={ev.image} alt={ev.title} className="w-full h-full object-cover" />
+                </div>
+                <div className="p-6 space-y-2">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <span className="px-2 py-0.5 rounded bg-muted">{ev.category}</span>
+                    <span>{ev.date}</span>
+                    <span>•</span>
+                    <span>{ev.location}</span>
+                  </div>
+                  <h3 className="text-lg font-semibold">{ev.title}</h3>
+                  <p className="text-sm text-muted-foreground">{ev.description}</p>
                 </div>
               </GlassCard>
             </motion.div>

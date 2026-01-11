@@ -29,20 +29,23 @@ function verifyPassword(stored: string, password: string) {
 export async function POST(req: Request) {
   try {
     const body = await req.json()
-    const { email, password } = body as { email?: string; password?: string }
+    const { identifier, password } = body as { identifier?: string; password?: string }
 
-    if (!email || !password) {
-      return NextResponse.json({ error: 'Email and password are required' }, { status: 400 })
+    if (!identifier || !password) {
+      return NextResponse.json({ error: 'Username or email and password are required' }, { status: 400 })
     }
-    if (!isValidEmail(email)) {
+    const treatAsEmail = identifier.includes('@')
+    if (treatAsEmail && !isValidEmail(identifier)) {
       return NextResponse.json({ error: 'Email must match nnmYYddddd@nmamit.in' }, { status: 400 })
     }
 
     const db = await getDb()
-    interface User { passwordHash: string }
+    interface User { passwordHash: string; email: string }
     const users = db.collection<User>('users')
 
-    const user = await users.findOne({ email })
+    const user = treatAsEmail
+      ? await users.findOne({ email: identifier })
+      : await users.findOne({ username: identifier })
     if (!user) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
     }
@@ -54,7 +57,7 @@ export async function POST(req: Request) {
 
     const sessionId = crypto.randomBytes(24).toString('hex')
     const sessions = (await getDb()).collection('sessions')
-    await sessions.insertOne({ sessionId, email, createdAt: new Date(), expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7) })
+    await sessions.insertOne({ sessionId, email: user.email, createdAt: new Date(), expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7) })
 
     const res = NextResponse.json({ success: true })
     res.cookies.set('session_id', sessionId, {

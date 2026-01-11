@@ -7,6 +7,7 @@
   "/api/auth/me/route": "/api/auth/me",
   "/api/auth/register/route": "/api/auth/register",
   "/api/members/route": "/api/members",
+  "/api/stats/route": "/api/stats",
   "/campus/page": "/campus",
   "/events/page": "/events",
   "/join/page": "/join",

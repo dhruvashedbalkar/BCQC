@@ -76,6 +76,12 @@
       "namedRegex": "^/api/members(?:/)?$"
     },
     {
+      "page": "/api/stats",
+      "regex": "^/api/stats(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/stats(?:/)?$"
+    },
+    {
       "page": "/campus",
       "regex": "^/campus(?:/)?$",
       "routeKeys": {},

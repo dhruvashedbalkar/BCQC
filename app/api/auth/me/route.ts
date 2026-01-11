@@ -19,10 +19,10 @@ export async function GET(req: Request) {
   }
 
   const users = db.collection('users')
-  const user = await users.findOne<{ email: string; walletAddress: string | null }>({ email: session.email })
+  const user = await users.findOne<{ email: string; username: string; walletAddress: string | null }>({ email: session.email })
   if (!user) {
     return NextResponse.json({ error: 'User not found' }, { status: 404 })
   }
 
-  return NextResponse.json({ email: user.email, walletAddress: user.walletAddress })
+  return NextResponse.json({ email: user.email, username: user.username, walletAddress: user.walletAddress })
 }

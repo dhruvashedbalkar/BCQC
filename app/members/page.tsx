@@ -9,7 +9,7 @@ import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { Github, Linkedin, Twitter } from "lucide-react"
 
-const leadership = [
+export const leadership = [
   {
     name: "Dhruva Shedbalkar",
     role: "Member",
@@ -70,6 +70,26 @@ const leadership = [
 
 type Member = { name: string; role: string; skills: string[] }
 
+function extractTwitterUsername(link?: string) {
+  if (!link) return null
+  try {
+    const u = new URL(link)
+    const host = u.hostname
+    if (host.includes("x.com") || host.includes("twitter.com")) {
+      const seg = u.pathname.split("/").filter(Boolean)
+      return seg[0] || null
+    }
+    return null
+  } catch {
+    return null
+  }
+}
+
+function twitterAvatar(link?: string) {
+  const username = extractTwitterUsername(link)
+  return username ? `https://unavatar.io/twitter/${username}` : undefined
+}
+
 
 export default function MembersPage() {
   const [members, setMembers] = useState<Member[]>([])
@@ -119,7 +139,7 @@ export default function MembersPage() {
                 <div className="w-24 h-24 mx-auto rounded-full p-1 bg-gradient-to-br from-primary to-secondary mb-4">
                   <div className="w-full h-full rounded-full overflow-hidden bg-background">
                     <img
-                      src={leader.image || "/placeholder.svg"}
+                      src={twitterAvatar(leader.socials.twitter) || leader.image || "/placeholder.svg"}
                       alt={leader.name}
                       className="w-full h-full object-cover"
                     />
