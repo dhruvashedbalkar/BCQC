@@ -77,6 +77,11 @@ async function getDb() {
     }, {
         unique: true
     });
+    await users.createIndex({
+        username: 1
+    }, {
+        unique: true
+    });
     return db;
 }
 async function closeDb() {
@@ -137,6 +142,7 @@ async function GET(req) {
     }
     return __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$QB$2e$Club$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$3_$40$babel$2b$core$40$7$2e$28$2e$5_babel$2d$plugin$2d$react$2d$compiler$40$1$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
         email: user.email,
+        username: user.username,
         walletAddress: user.walletAddress
     });
 }

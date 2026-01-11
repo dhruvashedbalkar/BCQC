@@ -1,8 +1,0 @@
-1:"$Sreact.fragment"
-2:I[77378,["/_next/static/chunks/429108c9a5b7224f.js","/_next/static/chunks/8e68e527fd4b1fb3.js"],"ViewportBoundary"]
-4:I[77378,["/_next/static/chunks/429108c9a5b7224f.js","/_next/static/chunks/8e68e527fd4b1fb3.js"],"MetadataBoundary"]
-5:"$Sreact.suspense"
-7:I[98307,["/_next/static/chunks/429108c9a5b7224f.js","/_next/static/chunks/8e68e527fd4b1fb3.js"],"IconMark"]
-0:{"buildId":"CNoavZH32TQdVkxXqp9Ox","rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"loading":null,"isPartial":false}
-3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#8b5cf6"}]]
-6:[["$","title","0",{"children":"Blockchain & Quantum Computing Club | Building the Future"}],["$","meta","1",{"name":"description","content":"Join the future of decentralized intelligence. A student-led community exploring blockchain, quantum computing, and AI technologies."}],["$","meta","2",{"name":"generator","content":"v0.app"}],["$","meta","3",{"name":"keywords","content":"blockchain,quantum computing,AI,web3,decentralization,student club"}],["$","link","4",{"rel":"icon","href":"/icon-light-32x32.png","media":"(prefers-color-scheme: light)"}],["$","link","5",{"rel":"icon","href":"/icon-dark-32x32.png","media":"(prefers-color-scheme: dark)"}],["$","link","6",{"rel":"icon","href":"/icon.svg","type":"image/svg+xml"}],["$","link","7",{"rel":"apple-touch-icon","href":"/apple-icon.png"}],["$","$L7","8",{}]]

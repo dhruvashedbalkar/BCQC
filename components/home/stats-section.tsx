@@ -3,9 +3,9 @@
 import { motion } from "framer-motion"
 import { GlassCard } from "@/components/glass-card"
 import { useEffect, useState } from "react"
-import { projects } from "@/app/projects/page"
-import { events } from "@/app/events/page"
-import { leadership } from "@/app/members/page"
+import { projects } from "@/lib/data/projects"
+import { events } from "@/lib/data/events"
+import { leadership } from "@/lib/data/leadership"
 
 export function StatsSection() {
   const [usersCount, setUsersCount] = useState<number>(0)

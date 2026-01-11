@@ -77,6 +77,11 @@ async function getDb() {
     }, {
         unique: true
     });
+    await users.createIndex({
+        username: 1
+    }, {
+        unique: true
+    });
     return db;
 }
 async function closeDb() {
