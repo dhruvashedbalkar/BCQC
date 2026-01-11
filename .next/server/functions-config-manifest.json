@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "functions": {
+    "/api/auth/register": {},
+    "/api/auth/login": {},
+    "/api/auth/me": {},
+    "/api/stats": {},
+    "/api/auth/logout": {},
+    "/api/members": {}
+  }
+}

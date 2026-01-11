@@ -20,7 +20,7 @@ export async function getDb(): Promise<Db> {
 
   const users = db.collection('users')
   await users.createIndex({ email: 1 }, { unique: true })
-  await users.createIndex({ username: 1 }, { unique: true })
+  await users.createIndex({ username: 1 }, { unique: true, sparse: true })
 
   return db
 }

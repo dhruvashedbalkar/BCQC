@@ -3,6 +3,11 @@ export const runtime = 'nodejs'
 import { getDb } from '@/lib/db'
 import * as crypto from 'crypto'
 
+function isValidEmail(email: string) {
+  const re = /^nnm\d{2}[a-z]{2}\d{3}@nmamit\.in$/
+  return re.test(email)
+}
+
 function verifyPassword(stored: string, password: string) {
   try {
     const [saltHex, keyHex] = stored.split(':')
@@ -72,8 +77,4 @@ export async function POST(req: Request) {
     const msg = e instanceof Error ? e.message : 'Unexpected error'
     return NextResponse.json({ error: msg }, { status: 500 })
   }
-}
-function isValidEmail(email: string) {
-  const re = /^nnm\d{2}[a-z]{2}\d{3}@nmamit\.in$/
-  return re.test(email)
 }

@@ -8,7 +8,42 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { motion } from "framer-motion"
 import { MapPin, Clock, Users, QrCode } from "lucide-react"
-import { events } from "@/lib/data/events"
+
+export const events = [
+  {
+    id: 1,
+    title: "DeFi Summit 2025",
+    date: "Oct 15, 2025",
+    time: "10:00 AM - 4:00 PM",
+    location: "Grand Hall, Tech Campus",
+    category: "Conference",
+    attendees: 250,
+    image: "/placeholder.svg?key=events1",
+    description: "Join leading DeFi protocols and researchers for a day of talks and workshops.",
+  },
+  {
+    id: 2,
+    title: "Quantum Hackathon",
+    date: "Nov 05, 2025",
+    time: "48 Hours",
+    location: "Innovation Hub",
+    category: "Hackathon",
+    attendees: 120,
+    image: "/placeholder.svg?key=events2",
+    description: "Build the future of quantum algorithms using Qiskit and Cirq.",
+  },
+  {
+    id: 3,
+    title: "AI Ethics Workshop",
+    date: "Nov 12, 2025",
+    time: "2:00 PM - 5:00 PM",
+    location: "Room 304, CS Building",
+    category: "Workshop",
+    attendees: 45,
+    image: "/placeholder.svg?key=events3",
+    description: "Discussion on the ethical implications of autonomous agents.",
+  },
+]
 
 export default function EventsPage() {
   return (
